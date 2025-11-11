@@ -1,132 +1,127 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SolutionTP1;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TP1;
 
-namespace SolutionTP1.Tests
+namespace TP1Tests
 {
-    [TestClass()]
     public class NumberGeneratorTests
     {
-        [TestMethod]
+        private const int SMALL_NUMBER_OF_TRIES = 100;
+        private const int LARGE_NUMBER_OF_TRIES = 100;
+
+        // PROF : ne vous fiez pas � la nomenclature de ces tests : elle n'est pas � jour
+        [Fact]
         public void TestEmptyConstructorCreateSequentialGenerator()
         {
             NumberGenerator gen = new NumberGenerator();
 
-            for (int i = 1; i < 100; i++)
+            for (int i = 1; i < SMALL_NUMBER_OF_TRIES; i++)
             {
-                Assert.AreEqual(i, gen.Next());
+                Assert.Equal(i, gen.Next());
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIntConstructorCreateConstantGenerator_5()
         {
             int expected = 5;
             NumberGenerator gen = new NumberGenerator(expected);
 
-            for (int i = 1; i < 100; i++)
+            for (int i = 1; i < SMALL_NUMBER_OF_TRIES; i++)
             {
-                Assert.AreEqual(expected, gen.Next());
+                Assert.Equal(expected, gen.Next());
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIntConstructorCreateConstantGenerator_7()
         {
             int expected = 7;
             NumberGenerator gen = new NumberGenerator(expected);
 
-            for (int i = 1; i < 100; i++)
+            for (int i = 1; i < SMALL_NUMBER_OF_TRIES; i++)
             {
-                Assert.AreEqual(expected, gen.Next());
+                Assert.Equal(expected, gen.Next());
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException), "La valeur de zéro est interdite")]
+        [Fact]
         public void TestIntConstructorRefuses_0()
         {
             int parameter = 0;
-            NumberGenerator gen = new NumberGenerator(parameter);
+
+            Assert.Throws<InvalidOperationException>(() => new NumberGenerator(parameter));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException), "La valeur est trop élevée")]
+        [Fact]
         public void TestIntConstructorRefuses_1000()
         {
             int parameter = 1000;
 
-            NumberGenerator gen = new NumberGenerator(parameter);
+            Assert.Throws<InvalidOperationException>(() => new NumberGenerator(parameter));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException), "La valeur négative est interdite")]
+        [Fact]
         public void TestIntConstructorRefusesNegative()
         {
             int parameter = -1;
-            NumberGenerator gen = new NumberGenerator(parameter);
+            Assert.Throws<InvalidOperationException>(() => new NumberGenerator(parameter));
 
         }
 
-        [TestMethod]
+        [Fact]
         public void TestLongConstructorGeneratesPseudorandomSequenceProperlySeeded()
         {
             long parameter = 1337l;
             NumberGenerator gen = new NumberGenerator(parameter);
             Random random = new Random((int)parameter);
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < LARGE_NUMBER_OF_TRIES; i++)
             {
-                Assert.AreEqual(random.Next(1, 1000), gen.Next());
+                Assert.Equal(random.Next(1, LARGE_NUMBER_OF_TRIES), gen.Next());
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void TestLongConstructorGeneratesPseudorandomSequenceAlwaysInBounds_1337()
         {
             long parameter = 1337L;
             NumberGenerator gen = new NumberGenerator(parameter);
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < LARGE_NUMBER_OF_TRIES; i++)
             {
 
                 int val = gen.Next();
-                Assert.IsTrue(val > 0);
-                Assert.IsTrue(val < 1000);
+                Assert.True(val > 0);
+                Assert.True(val < NumberGenerator.MAX_GENERATED_NUMBER);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void TestLongConstructorGeneratesPseudorandomSequenceAlwaysInBounds_1()
         {
             long parameter = 1l;
             NumberGenerator gen = new NumberGenerator(parameter);
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < LARGE_NUMBER_OF_TRIES; i++)
             {
 
                 int val = gen.Next();
-                Assert.IsTrue(val > 0);
-                Assert.IsTrue(val < 1000);
+                Assert.True(val > 0);
+                Assert.True(val < NumberGenerator.MAX_GENERATED_NUMBER);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void TestLongConstructorGeneratesPseudorandomSequenceAlwaysInBounds_99()
         {
             long parameter = 99L;
             NumberGenerator gen = new NumberGenerator(parameter);
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < LARGE_NUMBER_OF_TRIES; i++)
             {
 
                 int val = gen.Next();
-                Assert.IsTrue(val > 0);
-                Assert.IsTrue(val < 1000);
+                Assert.True(val > 0);
+                Assert.True(val < NumberGenerator.MAX_GENERATED_NUMBER);
             }
         }
     }

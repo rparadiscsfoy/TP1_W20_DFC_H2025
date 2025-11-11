@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SolutionTP1
+namespace TP1
 {
-	/* Code fait par François Gagnon et adapté par Karine Filiatreault */
+	/* Code fait par François Gagnon et adapté par Karine Filiatreault et Raphaël Paradis */
     public class NumberGenerator
     {
+		public const int MAX_GENERATED_NUMBER = 1000;
+
         private int nextValue;
         private bool isSequential;
         private bool isConstant;
@@ -58,7 +56,7 @@ namespace SolutionTP1
 		public NumberGenerator(int val)
 		{	
 			//constant mode
-			if (val <= 0 || val >= 1000)
+			if (val <= 0 || val >= MAX_GENERATED_NUMBER)
 			{
 				throw new InvalidOperationException("The constant Number Generator cannot be initialized with a value of 0 (or less) nor a value of 1000 (or more).");
 			}
@@ -88,7 +86,7 @@ namespace SolutionTP1
 			if (isSequential)
 			{
 				int val = this.NextValue;
-				if (val >= 1000)
+				if (val >= MAX_GENERATED_NUMBER)
 				{
 					throw new InvalidOperationException("The sequential Number Generator reached the limit.");
 				}
@@ -101,7 +99,7 @@ namespace SolutionTP1
 			}
 			else
 			{
-				return this.random.Next(1, 1000); // max 999
+				return this.random.Next(1, MAX_GENERATED_NUMBER); // max 999
 			}
 		}
 

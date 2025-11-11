@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SolutionTP1
+namespace TP1
 {
     class Program
     {

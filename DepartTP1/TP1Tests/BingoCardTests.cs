@@ -1,14 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SolutionTP1;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TP1;
 
-namespace SolutionTP1.Tests
+namespace TP1Tests
 {
-    [TestClass()]
     public class BingoCardTests
     {
         private void MakeSureThisMethodCompiles()
@@ -19,8 +12,12 @@ namespace SolutionTP1.Tests
             int score = card.ComputeScore();
         }
 
-        /*
-         * Placez vos tests ici
-         */
+        // Placez vos tests ici
+
+        [Fact]
+        public void Test()
+        {
+
+        }
     }
 }
