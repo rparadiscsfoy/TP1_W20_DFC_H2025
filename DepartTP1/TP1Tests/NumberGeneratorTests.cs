@@ -5,7 +5,7 @@ namespace TP1Tests
     public class NumberGeneratorTests
     {
         private const int SMALL_NUMBER_OF_TRIES = 100;
-        private const int LARGE_NUMBER_OF_TRIES = 100;
+        private const int LARGE_NUMBER_OF_TRIES = 1000;
 
         // PROF : ne vous fiez pas à la nomenclature de ces tests : elle n'est pas à jour
         [Fact]
